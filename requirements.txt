@@ -108,7 +108,7 @@ scikit-learn==1.8.0
 scipy==1.17.0
 seaborn==0.13.2
 Send2Trash==2.1.0
-setuptools==80.9.0
+setuptools==82.0.0
 six==1.17.0
 smmap==5.0.2
 soupsieve==2.8.2
@@ -131,4 +131,5 @@ wcwidth==0.2.14
 webcolors==25.10.0
 webencodings==0.5.1
 websocket-client==1.9.0
+wheel==0.46.3
 widgetsnbextension==4.0.15
