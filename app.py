@@ -7,9 +7,9 @@ from PIL import Image
 import os
 
 
-st.set_page_config(page_title='SuperStore!!!',page_icon=':bar_chart',layout='wide')
+st.set_page_config(page_title='Rossmann!!!',page_icon=':bar_chart',layout='wide')
 st.title('Rossmann Analysis Dashboard')
-st.markdown('<style>div.block-container{padding-top:1rem;}</style>',unsafe_allow_html=True)
+st.markdown('<style>div.block-container{padding-top:2rem;}</style>',unsafe_allow_html=True)
 
 # Load the data
 data=pd.read_csv("rossman.csv")
@@ -153,8 +153,13 @@ with chart1:
         width=0.6
     )
     
+    plt.xticks(fontsize=14, color="#2AA3EF")
+    plt.yticks(fontsize=12, color="#FEC54A")
+    
+    
     # 3. Data Labels (Uncommented and correctly indented)
-    ax.bar_label(bars, fmt='%.0f', padding=3, fontweight='bold')
+    # ax.bar_label(bars, fmt='%.0f', padding=3, fontweight='bold')
+    plt.xticks(fontsize=14)
 
     # 4. Styling (Must be indented inside 'with chart1')
     ax.spines['top'].set_visible(False)
@@ -183,6 +188,8 @@ with chart2:
         color=['#0047AB','#F18C10','#FF5733','#33FF57','#8A2BE2','#FFD700','#00FFFF','#FF69B4','#A52A2A','#5F9EA0','#D2691E','#FF7F50'],
         width=0.6
     )
+    plt.xticks(fontsize=14, color="#2982EE")
+    plt.yticks(fontsize=16, color="#318DF7")
 
     # 3. Styling (Must be indented inside 'with chart2')
     ax.spines['top'].set_visible(False)
@@ -190,7 +197,7 @@ with chart2:
     ax.yaxis.set_tick_params(labelsize=8)
     
     # Rotation is necessary for long month names
-    plt.xticks(rotation=45, ha='right', fontsize=9)
+    plt.xticks(rotation=45, ha='right', fontsize=10)
     
     fig.patch.set_alpha(0)
     ax.set_facecolor('none')
@@ -239,7 +246,9 @@ with chart3:
         color=['#F18C10', '#0047AB', '#FF5733', '#33FF57'],
         width=0.6
     )
-    ax.bar_label(bars, fmt='%.0f', padding=3, fontweight='bold')
+    plt.xticks(fontsize=14, color="#1E78F6")
+    plt.yticks(fontsize=12, color="#FEC54A")
+    #ax.bar_label(bars, fmt='${:,.0f}', padding=3, fontweight='bold', fontsize=1)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
@@ -249,12 +258,7 @@ with chart3:
     plt.tight_layout()
     st.pyplot(fig)        
     
-# sales_by_competition = data.groupby("CompetitionDistance")["Sales"].mean()
-# plt.plot(sales_by_competition)
-# plt.xlabel("Competition Distance")
-# plt.ylabel("Sales")
-# plt.title("Sales by Competiotion Distance")
-# plt.show()
+
 
 with chart4:
     st.markdown("### Sales by Competition Distance")
@@ -269,6 +273,8 @@ with chart4:
     # 3. Plotting on the 'ax' object
     ax.plot(sales_by_competition.index, sales_by_competition.values, color='#0047AB')
     
+    plt.xticks(fontsize=12,color="#4A8FFE")
+    plt.yticks(fontsize=12,color="#4A74FE")
     # Dashboard Styling: removing borders and matching background
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
@@ -316,9 +322,9 @@ with chart5:
         color=['#2E8B57', '#CD5C5C', '#9370DB', '#00CED1'], 
         width=0.6
     )
-    
+    plt.xticks(fontsize=14, color="#347CF7")
     # 4. Adding Value Labels (Truth-telling: showing the scale clearly)
-    ax.bar_label(bars, fmt='%.0f', padding=3, fontweight='bold', fontsize=9)
+    ax.bar_label(bars, fmt='%.0f', padding=3, fontweight='bold', fontsize=14, color="#D13E54")
     
     # 5. Styling for the Dashboard
     ax.set_ylabel('Total Sales')
@@ -354,8 +360,11 @@ with chart6:
         width=0.5
     )
     
+    plt.xticks(fontsize=14, color="#1C69E6")
+    
+    
     # 4. Adding Data Labels (Average Sales per Day)
-    ax.bar_label(bars, fmt='%.0f', padding=3, fontweight='bold')
+    # ax.bar_label(bars, fmt='%.0f', padding=3, fontweight='bold')
     
     # 5. Styling to match your clean dashboard look
     ax.set_ylabel('Average Sales per Day')
@@ -387,12 +396,3 @@ with view2:
         school_holiday_stats['SchoolHoliday'] = school_holiday_stats['SchoolHoliday'].map({0: 'Not School Holiday', 1: 'School Holiday'})
         styled_df = school_holiday_stats.style.background_gradient(cmap='Blues', subset=['sum']).format({'sum': '${:,.2f}', 'mean': '${:,.2f}'})
         st.dataframe(styled_df, use_container_width=True)
-    
-
-    
-    
-    
-    
-    
-    
-    
