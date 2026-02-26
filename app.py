@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image
+import os
 
 
 st.set_page_config(page_title='SuperStore!!!',page_icon=':bar_chart',layout='wide')
@@ -11,7 +12,7 @@ st.title('Rossmann Analysis Dashboard')
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>',unsafe_allow_html=True)
 
 # Load the data
-data=pd.read_csv("C:\\Programmings\\Projects\\Store\\rossman.csv",encoding='ISO-8859-1')
+data=pd.read_csv("C:\\Programmings\\Projects\\Store\\rossman.csv")
 
 # If using a Streamlit file uploader
 uploaded_file = st.file_uploader("Choose an Excel file")
@@ -29,8 +30,10 @@ month_order = [
 
 # Initial Sidebar setup
 with st.sidebar:
-    # Using st.image for precise 100px width as we discussed
-    st.image("logo.png", width=100) 
+    # Using st.image for precise 100px width if available
+    logo_path = "logo.png"
+    if os.path.exists(logo_path):
+        st.image(logo_path, width=100)
     st.title('Choose your Filters')
     
     st.subheader('Select Year')
@@ -65,7 +68,7 @@ if filtered_data.empty:
 col1, col2,col3,col4,col5 = st.columns(5)
 
 with col1:
-    with st.container(border=True):
+    with st.container():
         total_sales=filtered_data['Sales'].sum()
         label_color="#F18C10"
         value_color="#0047AB"
@@ -78,7 +81,7 @@ with col1:
         st.markdown(html_metrics, unsafe_allow_html=True)
 
 with col2:
-    with st.container(border=True):
+    with st.container():
         total_store=filtered_data['Store'].nunique()
         label_color="#F18C10"
         value_color="#0047AB"
@@ -91,7 +94,7 @@ with col2:
         st.markdown(html_metrics, unsafe_allow_html=True)
         
 with col3:
-    with st.container(border=True):
+    with st.container():
         total_customer=filtered_data['Customers'].sum()
         label_color="#F18C10"
         value_color="#0047AB"
@@ -105,7 +108,7 @@ with col3:
         
 
 with col4:
-    with st.container(border=True):
+    with st.container():
         total_open=filtered_data['Open'].sum()
         label_color="#F18C10"
         value_color="#0047AB"
@@ -119,7 +122,7 @@ with col4:
 
 with col5:
     total_storetype=filtered_data['StoreType'].unique()
-    with st.container(border=True):
+    with st.container():
         label_color="#F18C10"
         value_color="#0047AB"
         html_metrics = f"""
@@ -207,7 +210,7 @@ with view1:
         styled_df = st_data.style.background_gradient(cmap='YlOrRd', subset=['Sales']).format({'Sales': '${:,.2f}'})
         
         # 3. Display in Streamlit
-        st.dataframe(styled_df, width='stretch')
+        st.dataframe(styled_df, use_container_width=True)
         
 with view2:
     
@@ -220,7 +223,7 @@ with view2:
         styled_df = sm_data.to_frame().style.background_gradient(cmap='Blues', subset=['Sales']).format({'Sales': '${:,.2f}'})
         
         # 3. Display in Streamlit
-        st.dataframe(styled_df, width='stretch')
+        st.dataframe(styled_df, use_container_width=True)
         
 st.divider()
 
@@ -282,13 +285,13 @@ with view1:
     with st.expander("Sales by Year"):
         sales_by_year = filtered_data.groupby('Year')['Sales'].sum().reset_index()
         styled_df = sales_by_year.style.background_gradient(cmap='Greens', subset=['Sales']).format({'Sales': '${:,.2f}'})
-        st.dataframe(styled_df, width='stretch')
+        st.dataframe(styled_df, use_container_width=True)
         
 with view2:
     with st.expander("Sales by Competition Distance"):
         sales_by_competition = data.groupby("CompetitionDistance")["Sales"].mean().reset_index()
         styled_df = sales_by_competition.style.background_gradient(cmap='magma', subset=['Sales']).format({'Sales': '${:,.2f}'})
-        st.dataframe(styled_df, width='stretch')
+        st.dataframe(styled_df, use_container_width=True)
             
 st.divider()            
             
@@ -376,14 +379,14 @@ with view1:
         holiday_data = data.groupby('StateHoliday')['Sales'].sum().reindex(['0', 'a', 'b', 'c']).fillna(0).reset_index()
         holiday_data['StateHoliday'] = holiday_data['StateHoliday'].map(holiday_map)
         styled_df = holiday_data.style.background_gradient(cmap='YlOrRd', subset=['Sales']).format({'Sales': '${:,.2f}'})
-        st.dataframe(styled_df, width='stretch')
+        st.dataframe(styled_df, use_container_width=True)
 
 with view2:
     with st.expander("School Holiday Sales Impact"):
         school_holiday_stats = data.groupby('SchoolHoliday')['Sales'].agg(['sum', 'mean']).reset_index()
         school_holiday_stats['SchoolHoliday'] = school_holiday_stats['SchoolHoliday'].map({0: 'Not School Holiday', 1: 'School Holiday'})
-        styled_df = school_holiday_stats.style.background_gradient(cmap='Blues', subset=['sum']).format({'sum   ': '${:,.2f}', 'mean': '${:,.2f}'})
-        st.dataframe(styled_df, width='stretch') 
+        styled_df = school_holiday_stats.style.background_gradient(cmap='Blues', subset=['sum']).format({'sum': '${:,.2f}', 'mean': '${:,.2f}'})
+        st.dataframe(styled_df, use_container_width=True)
     
 
     
