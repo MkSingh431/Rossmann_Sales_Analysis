@@ -12,12 +12,12 @@ st.title('Rossmann Analysis Dashboard')
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>',unsafe_allow_html=True)
 
 # Load the data
-data=pd.read_csv("C:\\Programmings\\Projects\\Store\\rossman.csv")
+data=pd.read_csv("rossman.csv")
 
-# If using a Streamlit file uploader
-uploaded_file = st.file_uploader("Choose an Excel file")
-if uploaded_file:
-    data = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
+# # If using a Streamlit file uploader
+# uploaded_file = st.file_uploader("Choose an Excel file")
+# if uploaded_file:
+#     data = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
     
 data['Date'] = pd.to_datetime(data['Date'], errors='coerce')
 data = data.dropna(subset=['Date']).copy()
