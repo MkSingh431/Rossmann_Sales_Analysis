@@ -38,7 +38,7 @@ with st.sidebar:
     
     st.subheader('Select Year')
     years = sorted(data['Year'].dropna().astype(int).unique().tolist())
-    selected_years = st.multiselect("Pick your Year(s)", years, default=years)
+    selected_years = st.multiselect("Pick your Year(s)", years)
 
     st.subheader('Select Store Type')
     store_types = sorted(data['StoreType'].dropna().unique().tolist())
