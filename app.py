@@ -42,11 +42,11 @@ with st.sidebar:
 
     st.subheader('Select Store Type')
     store_types = sorted(data['StoreType'].dropna().unique().tolist())
-    selected_store_types = st.multiselect("Pick Store Type(s)", store_types, default=store_types)
+    selected_store_types = st.multiselect("Pick Store Type(s)", store_types)
     
     st.subheader("Select Store ID")
     store_ids = sorted(data['Store'].dropna().unique().tolist())
-    selected_store_ids = st.multiselect("Pick Store ID(s)", store_ids, default=store_ids)
+    selected_store_ids = st.multiselect("Pick Store ID(s)", store_ids)
     
     st.subheader("Follow Mk Singh")
     st.markdown("[LinkedIn](http://www.linkedin.com/in/motilal-das-42b4a9254)")
